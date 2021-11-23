@@ -35,10 +35,11 @@ app.prepare().then(() => {
 		});
 	});
 
-	server.listen(3000, (err) => {
-		if (err) throw err
-		console.log('> Ready on http://localhost:3000')
-	})
+	const { PORT=3000, LOCAL_ADDRESS='0.0.0.0' } = process.env
+	server.listen(PORT, LOCAL_ADDRESS, () => {
+		const address = server.address();
+		console.log('server listening at', address);
+	});
 }).catch((err) => {
 	console.error("Next.js server failed to start", err);
 })
